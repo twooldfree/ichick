@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.twooldfree.ichick.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.twooldfree.ichick.model.User">
+    <id column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="imgType" jdbcType="VARCHAR" property="imgtype" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="service_desc" jdbcType="VARCHAR" property="serviceDesc" />
+    <result column="relate_catalog_id" jdbcType="VARCHAR" property="relateCatalogId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="apply_user" jdbcType="VARCHAR" property="applyUser" />
+    <result column="ispublis" jdbcType="INTEGER" property="ispublis" />
+    <result column="publisDate" jdbcType="TIMESTAMP" property="publisdate" />
+    <result column="design_id" jdbcType="VARCHAR" property="designId" />
+    <result column="deleteStatus" jdbcType="INTEGER" property="deletestatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.twooldfree.ichick.model.User">
+    <result column="service_logo" jdbcType="LONGVARBINARY" property="serviceLogo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    service_id, imgType, service_name, service_desc, relate_catalog_id, create_time, 
+    apply_user, ispublis, publisDate, design_id, deleteStatus
+  </sql>
+  <sql id="Blob_Column_List">
+    service_logo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iop_service
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from iop_service
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.twooldfree.ichick.model.User">
+    insert into iop_service (service_id, imgType, service_name, 
+      service_desc, relate_catalog_id, create_time, 
+      apply_user, ispublis, publisDate, 
+      design_id, deleteStatus, service_logo
+      )
+    values (#{serviceId,jdbcType=VARCHAR}, #{imgtype,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, 
+      #{serviceDesc,jdbcType=VARCHAR}, #{relateCatalogId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{applyUser,jdbcType=VARCHAR}, #{ispublis,jdbcType=INTEGER}, #{publisdate,jdbcType=TIMESTAMP}, 
+      #{designId,jdbcType=VARCHAR}, #{deletestatus,jdbcType=INTEGER}, #{serviceLogo,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.twooldfree.ichick.model.User">
+    insert into iop_service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="imgtype != null">
+        imgType,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="serviceDesc != null">
+        service_desc,
+      </if>
+      <if test="relateCatalogId != null">
+        relate_catalog_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="applyUser != null">
+        apply_user,
+      </if>
+      <if test="ispublis != null">
+        ispublis,
+      </if>
+      <if test="publisdate != null">
+        publisDate,
+      </if>
+      <if test="designId != null">
+        design_id,
+      </if>
+      <if test="deletestatus != null">
+        deleteStatus,
+      </if>
+      <if test="serviceLogo != null">
+        service_logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtype != null">
+        #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCatalogId != null">
+        #{relateCatalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUser != null">
+        #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublis != null">
+        #{ispublis,jdbcType=INTEGER},
+      </if>
+      <if test="publisdate != null">
+        #{publisdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designId != null">
+        #{designId,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestatus != null">
+        #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLogo != null">
+        #{serviceLogo,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    <set>
+      <if test="imgtype != null">
+        imgType = #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCatalogId != null">
+        relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUser != null">
+        apply_user = #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublis != null">
+        ispublis = #{ispublis,jdbcType=INTEGER},
+      </if>
+      <if test="publisdate != null">
+        publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designId != null">
+        design_id = #{designId,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestatus != null">
+        deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLogo != null">
+        service_logo = #{serviceLogo,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    set imgType = #{imgtype,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      design_id = #{designId,jdbcType=VARCHAR},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      service_logo = #{serviceLogo,jdbcType=LONGVARBINARY}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    set imgType = #{imgtype,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      design_id = #{designId,jdbcType=VARCHAR},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.twooldfree.ichick.model.User">
+    <id column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="imgType" jdbcType="VARCHAR" property="imgtype" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="service_desc" jdbcType="VARCHAR" property="serviceDesc" />
+    <result column="relate_catalog_id" jdbcType="VARCHAR" property="relateCatalogId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="apply_user" jdbcType="VARCHAR" property="applyUser" />
+    <result column="ispublis" jdbcType="INTEGER" property="ispublis" />
+    <result column="publisDate" jdbcType="TIMESTAMP" property="publisdate" />
+    <result column="design_id" jdbcType="VARCHAR" property="designId" />
+    <result column="deleteStatus" jdbcType="INTEGER" property="deletestatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.twooldfree.ichick.model.User">
+    <result column="service_logo" jdbcType="LONGVARBINARY" property="serviceLogo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    service_id, imgType, service_name, service_desc, relate_catalog_id, create_time, 
+    apply_user, ispublis, publisDate, design_id, deleteStatus
+  </sql>
+  <sql id="Blob_Column_List">
+    service_logo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iop_service
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from iop_service
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.twooldfree.ichick.model.User">
+    insert into iop_service (service_id, imgType, service_name, 
+      service_desc, relate_catalog_id, create_time, 
+      apply_user, ispublis, publisDate, 
+      design_id, deleteStatus, service_logo
+      )
+    values (#{serviceId,jdbcType=VARCHAR}, #{imgtype,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, 
+      #{serviceDesc,jdbcType=VARCHAR}, #{relateCatalogId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{applyUser,jdbcType=VARCHAR}, #{ispublis,jdbcType=INTEGER}, #{publisdate,jdbcType=TIMESTAMP}, 
+      #{designId,jdbcType=VARCHAR}, #{deletestatus,jdbcType=INTEGER}, #{serviceLogo,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.twooldfree.ichick.model.User">
+    insert into iop_service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="imgtype != null">
+        imgType,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="serviceDesc != null">
+        service_desc,
+      </if>
+      <if test="relateCatalogId != null">
+        relate_catalog_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="applyUser != null">
+        apply_user,
+      </if>
+      <if test="ispublis != null">
+        ispublis,
+      </if>
+      <if test="publisdate != null">
+        publisDate,
+      </if>
+      <if test="designId != null">
+        design_id,
+      </if>
+      <if test="deletestatus != null">
+        deleteStatus,
+      </if>
+      <if test="serviceLogo != null">
+        service_logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtype != null">
+        #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCatalogId != null">
+        #{relateCatalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUser != null">
+        #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublis != null">
+        #{ispublis,jdbcType=INTEGER},
+      </if>
+      <if test="publisdate != null">
+        #{publisdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designId != null">
+        #{designId,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestatus != null">
+        #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLogo != null">
+        #{serviceLogo,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    <set>
+      <if test="imgtype != null">
+        imgType = #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCatalogId != null">
+        relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUser != null">
+        apply_user = #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublis != null">
+        ispublis = #{ispublis,jdbcType=INTEGER},
+      </if>
+      <if test="publisdate != null">
+        publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designId != null">
+        design_id = #{designId,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestatus != null">
+        deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLogo != null">
+        service_logo = #{serviceLogo,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    set imgType = #{imgtype,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      design_id = #{designId,jdbcType=VARCHAR},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      service_logo = #{serviceLogo,jdbcType=LONGVARBINARY}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    set imgType = #{imgtype,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      design_id = #{designId,jdbcType=VARCHAR},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.twooldfree.ichick.model.User">
+    <id column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="imgType" jdbcType="VARCHAR" property="imgtype" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="service_desc" jdbcType="VARCHAR" property="serviceDesc" />
+    <result column="relate_catalog_id" jdbcType="VARCHAR" property="relateCatalogId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="apply_user" jdbcType="VARCHAR" property="applyUser" />
+    <result column="ispublis" jdbcType="INTEGER" property="ispublis" />
+    <result column="publisDate" jdbcType="TIMESTAMP" property="publisdate" />
+    <result column="design_id" jdbcType="VARCHAR" property="designId" />
+    <result column="deleteStatus" jdbcType="INTEGER" property="deletestatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.twooldfree.ichick.model.User">
+    <result column="service_logo" jdbcType="LONGVARBINARY" property="serviceLogo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    service_id, imgType, service_name, service_desc, relate_catalog_id, create_time, 
+    apply_user, ispublis, publisDate, design_id, deleteStatus
+  </sql>
+  <sql id="Blob_Column_List">
+    service_logo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iop_service
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from iop_service
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.twooldfree.ichick.model.User">
+    insert into iop_service (service_id, imgType, service_name, 
+      service_desc, relate_catalog_id, create_time, 
+      apply_user, ispublis, publisDate, 
+      design_id, deleteStatus, service_logo
+      )
+    values (#{serviceId,jdbcType=VARCHAR}, #{imgtype,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, 
+      #{serviceDesc,jdbcType=VARCHAR}, #{relateCatalogId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{applyUser,jdbcType=VARCHAR}, #{ispublis,jdbcType=INTEGER}, #{publisdate,jdbcType=TIMESTAMP}, 
+      #{designId,jdbcType=VARCHAR}, #{deletestatus,jdbcType=INTEGER}, #{serviceLogo,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.twooldfree.ichick.model.User">
+    insert into iop_service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="imgtype != null">
+        imgType,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="serviceDesc != null">
+        service_desc,
+      </if>
+      <if test="relateCatalogId != null">
+        relate_catalog_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="applyUser != null">
+        apply_user,
+      </if>
+      <if test="ispublis != null">
+        ispublis,
+      </if>
+      <if test="publisdate != null">
+        publisDate,
+      </if>
+      <if test="designId != null">
+        design_id,
+      </if>
+      <if test="deletestatus != null">
+        deleteStatus,
+      </if>
+      <if test="serviceLogo != null">
+        service_logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtype != null">
+        #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCatalogId != null">
+        #{relateCatalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUser != null">
+        #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublis != null">
+        #{ispublis,jdbcType=INTEGER},
+      </if>
+      <if test="publisdate != null">
+        #{publisdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designId != null">
+        #{designId,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestatus != null">
+        #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLogo != null">
+        #{serviceLogo,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    <set>
+      <if test="imgtype != null">
+        imgType = #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCatalogId != null">
+        relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUser != null">
+        apply_user = #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublis != null">
+        ispublis = #{ispublis,jdbcType=INTEGER},
+      </if>
+      <if test="publisdate != null">
+        publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designId != null">
+        design_id = #{designId,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestatus != null">
+        deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLogo != null">
+        service_logo = #{serviceLogo,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    set imgType = #{imgtype,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      design_id = #{designId,jdbcType=VARCHAR},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      service_logo = #{serviceLogo,jdbcType=LONGVARBINARY}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    set imgType = #{imgtype,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      design_id = #{designId,jdbcType=VARCHAR},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.twooldfree.ichick.model.User">
+    <id column="service_id" jdbcType="VARCHAR" property="serviceId" />
+    <result column="imgType" jdbcType="VARCHAR" property="imgtype" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="service_desc" jdbcType="VARCHAR" property="serviceDesc" />
+    <result column="relate_catalog_id" jdbcType="VARCHAR" property="relateCatalogId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="apply_user" jdbcType="VARCHAR" property="applyUser" />
+    <result column="ispublis" jdbcType="INTEGER" property="ispublis" />
+    <result column="publisDate" jdbcType="TIMESTAMP" property="publisdate" />
+    <result column="design_id" jdbcType="VARCHAR" property="designId" />
+    <result column="deleteStatus" jdbcType="INTEGER" property="deletestatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.twooldfree.ichick.model.User">
+    <result column="service_logo" jdbcType="LONGVARBINARY" property="serviceLogo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    service_id, imgType, service_name, service_desc, relate_catalog_id, create_time, 
+    apply_user, ispublis, publisDate, design_id, deleteStatus
+  </sql>
+  <sql id="Blob_Column_List">
+    service_logo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from iop_service
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from iop_service
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.twooldfree.ichick.model.User">
+    insert into iop_service (service_id, imgType, service_name, 
+      service_desc, relate_catalog_id, create_time, 
+      apply_user, ispublis, publisDate, 
+      design_id, deleteStatus, service_logo
+      )
+    values (#{serviceId,jdbcType=VARCHAR}, #{imgtype,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR}, 
+      #{serviceDesc,jdbcType=VARCHAR}, #{relateCatalogId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{applyUser,jdbcType=VARCHAR}, #{ispublis,jdbcType=INTEGER}, #{publisdate,jdbcType=TIMESTAMP}, 
+      #{designId,jdbcType=VARCHAR}, #{deletestatus,jdbcType=INTEGER}, #{serviceLogo,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.twooldfree.ichick.model.User">
+    insert into iop_service
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        service_id,
+      </if>
+      <if test="imgtype != null">
+        imgType,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="serviceDesc != null">
+        service_desc,
+      </if>
+      <if test="relateCatalogId != null">
+        relate_catalog_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="applyUser != null">
+        apply_user,
+      </if>
+      <if test="ispublis != null">
+        ispublis,
+      </if>
+      <if test="publisdate != null">
+        publisDate,
+      </if>
+      <if test="designId != null">
+        design_id,
+      </if>
+      <if test="deletestatus != null">
+        deleteStatus,
+      </if>
+      <if test="serviceLogo != null">
+        service_logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceId != null">
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="imgtype != null">
+        #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCatalogId != null">
+        #{relateCatalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUser != null">
+        #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublis != null">
+        #{ispublis,jdbcType=INTEGER},
+      </if>
+      <if test="publisdate != null">
+        #{publisdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designId != null">
+        #{designId,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestatus != null">
+        #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLogo != null">
+        #{serviceLogo,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    <set>
+      <if test="imgtype != null">
+        imgType = #{imgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDesc != null">
+        service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="relateCatalogId != null">
+        relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyUser != null">
+        apply_user = #{applyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="ispublis != null">
+        ispublis = #{ispublis,jdbcType=INTEGER},
+      </if>
+      <if test="publisdate != null">
+        publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="designId != null">
+        design_id = #{designId,jdbcType=VARCHAR},
+      </if>
+      <if test="deletestatus != null">
+        deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      </if>
+      <if test="serviceLogo != null">
+        service_logo = #{serviceLogo,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    set imgType = #{imgtype,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      design_id = #{designId,jdbcType=VARCHAR},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER},
+      service_logo = #{serviceLogo,jdbcType=LONGVARBINARY}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.twooldfree.ichick.model.User">
+    update iop_service
+    set imgType = #{imgtype,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      service_desc = #{serviceDesc,jdbcType=VARCHAR},
+      relate_catalog_id = #{relateCatalogId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      apply_user = #{applyUser,jdbcType=VARCHAR},
+      ispublis = #{ispublis,jdbcType=INTEGER},
+      publisDate = #{publisdate,jdbcType=TIMESTAMP},
+      design_id = #{designId,jdbcType=VARCHAR},
+      deleteStatus = #{deletestatus,jdbcType=INTEGER}
+    where service_id = #{serviceId,jdbcType=VARCHAR}
+  </update>
+</mapper>

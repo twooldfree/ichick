@@ -1,0 +1,19 @@
+server:
+  host: 127.0.0.1
+  port: 50030
+spring:
+  profiles:
+    active: dev #prod
+  datasource:
+    dataSourceClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/iop?useUnicode=true&amp;characterEncoding=utf-8&autoReconnect=true
+    username: root
+    password: root
+    platform: mysql
+    validation-query: select 1
+    initialize: false
+    continue-on-error: true
+    test-on-borrow: true
+    validation-interval: 300000
+mybatis:
+  mapper-locations: classpath:mapping/*.xml

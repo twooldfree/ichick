@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" th:href="@{/plugin/layui/css/layui.css}" />
+    <script th:src="@{/plugin/layui/layui.all.js}"></script>
+</head>
+<body>
+<button class="layui-btn">一个标准的按钮</button>
+<a href="http://www.layui.com" class="layui-btn">一个可跳转的按钮</a>
+<table id="demo" lay-filter="test"></table>
+
+<script>
+    ;!function(){
+        var layer = layui.layer
+            ,form = layui.form;
+
+        layer.msg('Hello World');
+
+    }();
+</script>
+</body>
+</html>
