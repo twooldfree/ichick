@@ -9,7 +9,7 @@ public class IndexController {
     @RequestMapping("/")
     public String goIndex(){
 
-        return "demo";
+        return "home";
 
     }
 

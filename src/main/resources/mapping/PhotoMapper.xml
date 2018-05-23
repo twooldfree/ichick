@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.twooldfree.ichick.mapper.PhotoMapper">
+  <resultMap id="BaseResultMap" type="com.twooldfree.ichick.model.Photo">
+    <id column="photo_id" jdbcType="VARCHAR" property="photoId" />
+    <result column="photo_name" jdbcType="VARCHAR" property="photoName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="lastmodify_time" jdbcType="TIMESTAMP" property="lastmodifyTime" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="lastmodify_user_id" jdbcType="VARCHAR" property="lastmodifyUserId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="related_graph_id" jdbcType="VARCHAR" property="relatedGraphId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="istitlepage" jdbcType="INTEGER" property="istitlepage" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.twooldfree.ichick.model.Photo">
+    <result column="photo_content" jdbcType="LONGVARBINARY" property="photoContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    photo_id, photo_name, create_time, lastmodify_time, create_user_id, lastmodify_user_id, 
+    remark, related_graph_id, file_name, istitlepage
+  </sql>
+  <sql id="Blob_Column_List">
+    photo_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ichick_photo
+    where photo_id = #{photoId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ichick_photo
+    where photo_id = #{photoId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.twooldfree.ichick.model.Photo">
+    insert into ichick_photo (photo_id, photo_name, create_time, 
+      lastmodify_time, create_user_id, lastmodify_user_id, 
+      remark, related_graph_id, file_name, 
+      istitlepage, photo_content)
+    values (#{photoId,jdbcType=VARCHAR}, #{photoName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastmodifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR}, #{lastmodifyUserId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{relatedGraphId,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{istitlepage,jdbcType=INTEGER}, #{photoContent,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.twooldfree.ichick.model.Photo">
+    insert into ichick_photo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="photoId != null">
+        photo_id,
+      </if>
+      <if test="photoName != null">
+        photo_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastmodifyTime != null">
+        lastmodify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="lastmodifyUserId != null">
+        lastmodify_user_id,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="relatedGraphId != null">
+        related_graph_id,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="istitlepage != null">
+        istitlepage,
+      </if>
+      <if test="photoContent != null">
+        photo_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="photoId != null">
+        #{photoId,jdbcType=VARCHAR},
+      </if>
+      <if test="photoName != null">
+        #{photoName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifyTime != null">
+        #{lastmodifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifyUserId != null">
+        #{lastmodifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedGraphId != null">
+        #{relatedGraphId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="istitlepage != null">
+        #{istitlepage,jdbcType=INTEGER},
+      </if>
+      <if test="photoContent != null">
+        #{photoContent,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.twooldfree.ichick.model.Photo">
+    update ichick_photo
+    <set>
+      <if test="photoName != null">
+        photo_name = #{photoName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifyTime != null">
+        lastmodify_time = #{lastmodifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifyUserId != null">
+        lastmodify_user_id = #{lastmodifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedGraphId != null">
+        related_graph_id = #{relatedGraphId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="istitlepage != null">
+        istitlepage = #{istitlepage,jdbcType=INTEGER},
+      </if>
+      <if test="photoContent != null">
+        photo_content = #{photoContent,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where photo_id = #{photoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.twooldfree.ichick.model.Photo">
+    update ichick_photo
+    set photo_name = #{photoName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      lastmodify_time = #{lastmodifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      lastmodify_user_id = #{lastmodifyUserId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      related_graph_id = #{relatedGraphId,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      istitlepage = #{istitlepage,jdbcType=INTEGER},
+      photo_content = #{photoContent,jdbcType=LONGVARBINARY}
+    where photo_id = #{photoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.twooldfree.ichick.model.Photo">
+    update ichick_photo
+    set photo_name = #{photoName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      lastmodify_time = #{lastmodifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      lastmodify_user_id = #{lastmodifyUserId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      related_graph_id = #{relatedGraphId,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      istitlepage = #{istitlepage,jdbcType=INTEGER}
+    where photo_id = #{photoId,jdbcType=VARCHAR}
+  </update>
+</mapper>

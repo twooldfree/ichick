@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.twooldfree.ichick.mapper.PhotoGraphMapper">
+  <resultMap id="BaseResultMap" type="com.twooldfree.ichick.model.PhotoGraph">
+    <id column="photograph_id" jdbcType="VARCHAR" property="photographId" />
+    <result column="photograph_name" jdbcType="VARCHAR" property="photographName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="lastmodify_time" jdbcType="TIMESTAMP" property="lastmodifyTime" />
+    <result column="create_user_id" jdbcType="VARCHAR" property="createUserId" />
+    <result column="lastmodify_user_id" jdbcType="VARCHAR" property="lastmodifyUserId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    photograph_id, photograph_name, create_time, lastmodify_time, create_user_id, lastmodify_user_id, 
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ichick_photograph
+    where photograph_id = #{photographId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ichick_photograph
+    where photograph_id = #{photographId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.twooldfree.ichick.model.PhotoGraph">
+    insert into ichick_photograph (photograph_id, photograph_name, create_time, 
+      lastmodify_time, create_user_id, lastmodify_user_id, 
+      remark)
+    values (#{photographId,jdbcType=VARCHAR}, #{photographName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastmodifyTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=VARCHAR}, #{lastmodifyUserId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.twooldfree.ichick.model.PhotoGraph">
+    insert into ichick_photograph
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="photographId != null">
+        photograph_id,
+      </if>
+      <if test="photographName != null">
+        photograph_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastmodifyTime != null">
+        lastmodify_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="lastmodifyUserId != null">
+        lastmodify_user_id,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="photographId != null">
+        #{photographId,jdbcType=VARCHAR},
+      </if>
+      <if test="photographName != null">
+        #{photographName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifyTime != null">
+        #{lastmodifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifyUserId != null">
+        #{lastmodifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.twooldfree.ichick.model.PhotoGraph">
+    update ichick_photograph
+    <set>
+      <if test="photographName != null">
+        photograph_name = #{photographName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifyTime != null">
+        lastmodify_time = #{lastmodifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastmodifyUserId != null">
+        lastmodify_user_id = #{lastmodifyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where photograph_id = #{photographId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.twooldfree.ichick.model.PhotoGraph">
+    update ichick_photograph
+    set photograph_name = #{photographName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      lastmodify_time = #{lastmodifyTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=VARCHAR},
+      lastmodify_user_id = #{lastmodifyUserId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where photograph_id = #{photographId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ichick_photograph
+    where create_user_id = #{user_id,jdbcType=VARCHAR}
+  </select>
+</mapper>
