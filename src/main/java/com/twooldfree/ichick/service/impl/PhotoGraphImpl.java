@@ -6,7 +6,9 @@ import com.twooldfree.ichick.service.PhotoGraphService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PhotoGraphImpl implements PhotoGraphService {
@@ -52,4 +54,17 @@ public class PhotoGraphImpl implements PhotoGraphService {
     public List<PhotoGraph> selectAll(String user_id) {
         return photoGraphMapper.selectAll(user_id);
     }
+
+    @Override
+    public List<PhotoGraph> selectByPage(String user_id,int startnum,int length){
+
+        Map param = new HashMap<String,String>();
+        param.put("user_id",user_id);
+        param.put("startnum",startnum);
+        param.put("length",length);
+
+        return photoGraphMapper.selectByPage(param);
+
+    }
+
 }

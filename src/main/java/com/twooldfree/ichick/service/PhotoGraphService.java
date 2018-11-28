@@ -18,4 +18,7 @@ public interface PhotoGraphService {
     int updateByPrimaryKey(PhotoGraph record);
 
     List<PhotoGraph> selectAll(String user_id);
+
+    List<PhotoGraph> selectByPage(String user_id,int startnum,int length);
+
 }

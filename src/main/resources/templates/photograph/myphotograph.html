@@ -4,18 +4,252 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="../layui/css/layui.css">
-    <link rel="stylesheet" th:href="@{/plugin/layui/css/layui.css}" />
 </head>
 <body>
 
-<div th:each="photoGraph:${photoGraphList}">
-    <input name="aaa" th:value="${photoGraph.photographName}">
-    <div th:text="${photoGraph.photographName}"></div>
+<div th:replace="top"></div>
+<div style="padding: 20px; background-color: #F2F2F2;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header layui-row">
+                    <div class="layui-col-md1">
+                        相册
+                    </div>
+                    <div class="layui-col-md1 layui-col-md-offset10">
+                        <button id="addPhotograph" class="layui-btn layui-btn-sm "><i class="layui-icon layui-icon-add-circle-fine"></i>新建相册</button>
+                    </div>
+                </div>
+                <div class="layui-card-body layui-row">
+                    <ul class="flow-default" id="photographflow">
+                    <!--照片流内容区域-->
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script th:src="@{/plugin/layui/layui.js}"></script>
+
 <script>
+
+    //相册菜单设置为选中状态
+    $(".layui-nav-item").removeClass("layui-this");
+    $("#photograph").addClass("layui-this");
+
+    var startnum = 0;
+    var length = 8;
+
+    layui.use('flow', function(){
+        var flow = layui.flow;
+
+        flow.load({
+            elem: '#photographflow' //流加载容器
+//            ,scrollElem: '#photographflow' //滚动条所在元素，一般不用填，此处只是演示需要。
+            ,isAuto: true
+            ,done: function(page, next){ //执行下一页的回调
+                var graphs = getPhoteGraphs(startnum,length);
+                var lis= initHtml(graphs);
+                next(lis.join(''), graphs.length==8); //假设总页数为 10
+                initcarousel();
+                startnum = startnum+length;
+
+
+            }
+        });
+    });
+
+
+    function initcarousel(){
+        layui.use('carousel', function(){
+
+            //循环所有相册
+            $("[name='titlepage']").each(function(){
+
+                var carousel = layui.carousel;
+
+                //建造实例
+                carousel.render({
+                    elem: $(this)
+                    ,autoplay:false //不自动播放
+                    ,width: '100%' //设置容器宽度
+                    ,arrow: 'hover' //箭头悬停显示
+                    ,anim: 'fade' //切换动画方式
+                    ,height: '240px'
+                    ,indicator: 'none'
+                });
+
+            });
+
+        });
+    }
+
+
+
+
+    // 获取指定数量的相册
+    function getPhoteGraphs(startnum,length){
+
+        var lis = [];
+
+        $.ajax({
+            type: 'GET',
+            url: "/photograph/getphotegraphsbypage",
+            data: {startnum: startnum,length: length},
+            dataType : 'json',
+            async:false,
+            success: function(data, status, xhr){
+
+                lis = data;
+
+
+            },
+            error: function(xhr, status){
+
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('error');
+                });
+
+            }
+
+        });
+        return lis;
+
+
+    }
+
+    function initHtml(lis){
+
+        var arr = [];
+
+        var html = "";
+
+        for(var i=0;i<lis.length;i++){
+
+            var bean = lis[i];
+
+            html = html+
+                "<!--一行相册元素start-->\n" +
+                "                        <div class=\"layui-col-md3\">\n" +
+                "                            <fieldset class=\"layui-elem-field\">\n" +
+                "                                <legend>"+bean.photographName+"</legend>\n" +
+                "                                <div class=\"layui-field-box\">\n" +
+                "                                    <!--图片轮播区域-->\n" +
+                "                                    <div class=\"layui-carousel\" name=\"titlepage\">\n" +
+                "                                        <div carousel-item>\n" +
+                "                                            <div>条目1</div>\n" +
+                "                                            <div>条目2</div>\n" +
+                "                                            <div>条目3</div>\n" +
+                "                                            <div>条目4</div>\n" +
+                "                                            <div>条目5</div>\n" +
+                "                                        </div>\n" +
+                "                                    </div>\n" +
+                "                                </div>\n" +
+                "                            </fieldset>\n" +
+                "                        </div>\n" +
+                "                    <!--一行相册元素end-->";
+
+            if(lis.length<length&&i==(lis.length-1)){
+                html = html+
+                arr.push(html);
+            }
+
+            if((i+1)%4==0){//4个一行
+                arr.push(html);
+                html = "";
+            }
+
+        }
+        return arr;
+
+    }
+
+    function Format(now,mask)
+    {
+        var d = now;
+        var zeroize = function (value, length)
+        {
+            if (!length) length = 2;
+            value = String(value);
+            for (var i = 0, zeros = ''; i < (length - value.length); i++)
+            {
+                zeros += '0';
+            }
+            return zeros + value;
+        };
+
+        return mask.replace(/"[^"]*"|'[^']*'|\b(?:d{1,4}|m{1,4}|yy(?:yy)?|([hHMstT])\1?|[lLZ])\b/g, function ($0)
+        {
+            switch ($0)
+            {
+                case 'd': return d.getDate();
+                case 'dd': return zeroize(d.getDate());
+                case 'ddd': return ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'][d.getDay()];
+                case 'dddd': return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d.getDay()];
+                case 'M': return d.getMonth() + 1;
+                case 'MM': return zeroize(d.getMonth() + 1);
+                case 'MMM': return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][d.getMonth()];
+                case 'MMMM': return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][d.getMonth()];
+                case 'yy': return String(d.getFullYear()).substr(2);
+                case 'yyyy': return d.getFullYear();
+                case 'h': return d.getHours() % 12 || 12;
+                case 'hh': return zeroize(d.getHours() % 12 || 12);
+                case 'H': return d.getHours();
+                case 'HH': return zeroize(d.getHours());
+                case 'm': return d.getMinutes();
+                case 'mm': return zeroize(d.getMinutes());
+                case 's': return d.getSeconds();
+                case 'ss': return zeroize(d.getSeconds());
+                case 'l': return zeroize(d.getMilliseconds(), 3);
+                case 'L': var m = d.getMilliseconds();
+                    if (m > 99) m = Math.round(m / 10);
+                    return zeroize(m);
+                case 'tt': return d.getHours() < 12 ? 'am' : 'pm';
+                case 'TT': return d.getHours() < 12 ? 'AM' : 'PM';
+                case 'Z': return d.toUTCString().match(/[A-Z]+$/);
+                // Return quoted strings with the surrounding quotes removed
+                default: return $0.substr(1, $0.length - 2);
+            }
+        });
+    };
+
+
+    $("#addPhotograph").click(function () {
+        // window.location.href="/photograph/goAddPhotograph";
+        layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.open({
+                type: 1 //此处以iframe举例
+                ,title: '当你选择该窗体时，即会在最顶端'
+                ,area: ['390px', '260px']
+                ,shade: 0
+                ,maxmin: true
+                ,content: '<form class="layui-form" action="">\n' +
+                    '    <div class="layui-form-item">\n' +
+                    '        <label class="layui-form-label">名称</label>\n' +
+                    '        <div class="layui-input-block layui-col-md3">\n' +
+                    '            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入相册名称" class="layui-input">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '    <div class="layui-form-item">\n' +
+                    '        <label class="layui-form-label">描述</label>\n' +
+                    '        <div class="layui-input-block layui-col-md3">\n' +
+                    '            <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea"></textarea>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '\n' +
+                    '</form>'
+                ,btn: ['继续弹出', '全部关闭'] //只是为了演示
+                ,yes: function(){
+                }
+                ,btn2: function(){
+                    layer.closeAll();
+                }
+            });
+        });
+    });
 
 </script>
 </body>

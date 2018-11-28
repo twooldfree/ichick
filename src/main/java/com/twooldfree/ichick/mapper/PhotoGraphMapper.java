@@ -4,6 +4,7 @@ import com.twooldfree.ichick.model.PhotoGraph;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface PhotoGraphMapper {
@@ -20,5 +21,7 @@ public interface PhotoGraphMapper {
     int updateByPrimaryKey(PhotoGraph record);
 
     List<PhotoGraph> selectAll(String user_id);
+
+    List<PhotoGraph> selectByPage(Map param);
 
 }

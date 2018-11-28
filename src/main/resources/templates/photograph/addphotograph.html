@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>添加相册</title>
+</head>
+<body>
+
+<div th:replace="top"></div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>新建一个相册</legend>
+</fieldset>
+
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-block layui-col-md3">
+            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入相册名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">描述</label>
+        <div class="layui-input-block layui-col-md3">
+            <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+</form>
+
+<script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{/plugin/layui/css/layui.css}" />
+    <script th:src="@{/plugin/jquery/jquery-1.11.0.js}"></script>
+</head>
+<body>
+<ul class="layui-nav layui-bg-blue">
+    <li id="home" class="layui-nav-item layui-this"><a href="javascript:;">首页</a></li>
+    <li id="timeline" class="layui-nav-item"><a href="javascript:;">时光轴</a></li>
+    <li id="photograph" class="layui-nav-item"><a href="javascript:;">相册</a></li>
+    <li id="note" class="layui-nav-item">
+        <a href="javascript:;">日记</a>
+        <dl class="layui-nav-child">
+            <dd><a href="">成长日记</a></dd>
+            <dd><a href="">柴米油盐</a></dd>
+        </dl>
+    </li>
+</ul>
+<script th:src="@{/plugin/layui/layui.js}"></script>
+<script>
+layui.use('element', function(){
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+
+    //监听导航点击
+    element.on('nav(demo)', function(elem){
+        //console.log(elem)
+        layer.msg(elem.text());
+    });
+});
+
+$(".layui-nav-item").click(function(){
+
+    if($(this).attr("id")=="photograph"){
+        window.location.href="/photograph/myphotograph";
+    }else if($(this).attr("id")=="home"){
+        window.location.href="/";
+    }
+
+});
+
+</script>
+</body>
+</html>
